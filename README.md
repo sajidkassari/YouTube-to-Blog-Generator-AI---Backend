@@ -22,4 +22,36 @@ This is the backend part of the YouTube to Blog Generator AI project. It provide
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/yourusername/backend-repo.git
+   git clone https://github.com/sajidkassari/YouTube-to-Blog-Generator-AI---Backend.git
+   
+2. **Install Dependencies**
+
+   ```bash
+   cd backend-repo
+   pip install -r requirements.txt
+   
+3. **Set Up Environment Variables**
+
+Create a .env file in the root directory and add your environment variables:
+
+   ```bash
+   GEMINI_API_KEY=your_gemini_api_key
+```
+4. **Initialize the Database**
+Run the following command to set up the SQLite database:
+
+   ```bash
+   python init_db.py
+   
+5. **Run the Application**
+
+   ```bash
+   python app.py
+   
+The backend will run on http://localhost:5000 by default.
+
+**Deployment**
+The backend is deployed on Vercel. You can access the live API at Vercel URL.
+
+API Endpoints
+POST /generate_blog: Generates a blog post from a YouTube video URL.
