@@ -11,7 +11,7 @@ from datetime import datetime
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "http://localhost:3000"]}})
 
 
 # Database setup
