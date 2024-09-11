@@ -13,6 +13,26 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
+
+# Database setup
+def get_db_connection():
+    conn = sqlite3.connect('/tmp/ip_tracking.db')
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    # Ensure the table exists
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS ip_tracking (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            ip_address TEXT NOT NULL,
+            conversion_count INTEGER DEFAULT 0,
+            last_conversion_date TEXT NOT NULL
+        )
+    ''')
+    conn.commit()
+
+    return conn
+
 # Ensure the database and table are created if they don't exist
 def initialize_db():
     conn = get_db_connection()
@@ -29,27 +49,6 @@ def initialize_db():
 
 # Call the initialization function when the app starts
 initialize_db()
-
-# Database setup
-def get_db_connection():
-    db_path = os.path.abspath('ip_tracking.db')
-    print(f"Database path: {db_path}")  # Add this to check the database location
-    conn = sqlite3.connect('ip_tracking.db')
-    conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
-
-    # Ensure the table exists
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS ip_tracking (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            ip_address TEXT NOT NULL,
-            conversion_count INTEGER DEFAULT 0,
-            last_conversion_date TEXT NOT NULL
-        )
-    ''')
-    conn.commit()
-
-    return conn
 
 # Middleware to get user's IP
 def get_user_ip():
