@@ -13,7 +13,23 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
-# Database setup
+# Ensure the database and table are created if they don't exist
+def initialize_db():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS ip_tracking (
+            ip_address TEXT PRIMARY KEY,
+            conversion_count INTEGER,
+            last_conversion_date TEXT
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+# Call the initialization function when the app starts
+initialize_db()
+
 # Database setup
 def get_db_connection():
     db_path = os.path.abspath('ip_tracking.db')
