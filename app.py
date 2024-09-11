@@ -33,22 +33,6 @@ def get_db_connection():
 
     return conn
 
-# Ensure the database and table are created if they don't exist
-def initialize_db():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS ip_tracking (
-            ip_address TEXT PRIMARY KEY,
-            conversion_count INTEGER,
-            last_conversion_date TEXT
-        )
-    ''')
-    conn.commit()
-    conn.close()
-
-# Call the initialization function when the app starts
-initialize_db()
 
 # Middleware to get user's IP
 def get_user_ip():
