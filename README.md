@@ -27,7 +27,7 @@ This is the backend part of the YouTube to Blog Generator AI project. It provide
 2. **Install Dependencies**
 
    ```bash
-   cd backend-repo
+   cd YouTube-to-Blog-Generator-AI---Backend
    pip install -r requirements.txt
    
 3. **Set Up Environment Variables**
