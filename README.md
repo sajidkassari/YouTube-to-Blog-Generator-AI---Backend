@@ -22,12 +22,12 @@ This is the backend part of the YouTube to Blog Generator AI project. It provide
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/sajidkassari/YouTube-to-Blog-Generator-AI---Backend.git
+   git clone https://github.com/sajidkassari/YouTube-to-Blog-Generator-AI-Backend.git
    
 2. **Install Dependencies**
 
    ```bash
-   cd YouTube-to-Blog-Generator-AI---Backend
+   cd YouTube-to-Blog-Generator-AI-Backend
    pip install -r requirements.txt
    
 3. **Set Up Environment Variables**
