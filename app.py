@@ -11,7 +11,7 @@ from datetime import datetime
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "http://localhost:3000"]}})
+CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}})
 
 
 # Database setup
@@ -103,6 +103,15 @@ def fetch_youtube_subtitles(video_id):
     except Exception as e:
         print(f"Error fetching subtitles: {e}")
         return None
+def fetch_gen_subtitles(video_id):
+    try:
+        transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+        transcript = transcript_list.find_generated_transcript(['en'])
+        subtitles = " ".join([entry['text'] for entry in transcript])
+        return subtitles
+    except Exception as e:
+        print(f"Error fetching subtitles: {e}")
+        return None
 
 # Set generation configuration for Gemini API
 generation_config = {
@@ -139,6 +148,8 @@ def generate_blog():
     # Fetch subtitles for the given video ID
     transcription = fetch_youtube_subtitles(video_id)
     if not transcription:
+        transcription = fetch_gen_subtitles(video_id)
+    elif not transcription:
         return jsonify({'error': 'Could not fetch subtitles'}), 500
 
     # Extra prompt to make the blog more SEO-friendly
